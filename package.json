@@ -1,10 +1,11 @@
 {
-  "name": "angular-seed",
+  "name": "resume-maker",
   "private": true,
-  "version": "0.0.0",
-  "description": "A starter project for AngularJS",
-  "repository": "https://github.com/angular/angular-seed",
+  "version": "1.0.0",
+  "description": "A resume generator app",
+  "repository": "https://github.com/amitmerchant1990/resume-maker",
   "license": "MIT",
+  "author": "Amit Merchant <bullredeyes@gmail.com>",
   "devDependencies": {
     "bower": "^1.7.7",
     "http-server": "^0.9.0",
