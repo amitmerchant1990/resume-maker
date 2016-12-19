@@ -5,21 +5,21 @@
 
         $urlRouterProvider.otherwise('/tab/dash');
         $stateProvider
-        .state('view1', {
-            url: "/basicinfo",
-            templateUrl: "partials/basicinfo.html"
-        })
         .state('view2', {
             url: "/summary",
             templateUrl: "partials/summary.html"
+        })
+        .state('view1', {
+            url: "/basicinfo",
+            templateUrl: "partials/basicinfo.html"
         })
         .state('view3', {
             url: "/experiences",
             templateUrl: "partials/experiences.html"
         })
         .state('view4', {
-            url: "/view4",
-            templateUrl: "partials/view4.html"
+            url: "/projects",
+            templateUrl: "partials/projects.html"
         })
         .state('view5', {
             url: "/view5",
@@ -41,16 +41,16 @@
         $scope.$watch('selectedIndex', function(current, old) {
             switch (current) {
                 case 0:
-                    $location.url("/basicinfo");
+                    $location.url("/summary");
                     break;
                 case 1:
-                    $location.url("/summary");
+                    $location.url("/basicinfo");
                     break;
                 case 2:
                     $location.url("/experiences");
                     break;
                 case 3:
-                    $location.url("/view4");
+                    $location.url("/projects");
                     break;
                 case 4:
                     $location.url("/view5");
@@ -151,31 +151,80 @@
         for(var i = 0; i < resolveAddExperienceObject.length; i++) {
             var obj = resolveAddExperienceObject[i];
 
-            experienceList.experiences.push({companyname: obj.companyname, time_period: obj.time_period, role_company: obj.role_company});
+            experienceList.experiences.push({id: obj.id, companyname: obj.companyname, time_period: obj.time_period, role_company: obj.role_company});
             //console.log(obj.id);
         }
       }
 
       experienceList.addExperience = function(){
-        experienceList.experiences.push({companyname: experienceList.companyname, time_period: experienceList.time_period, role_company: experienceList.role_company});
+        var expId = guid();
+        if(experienceList.id!=undefined){
+          let addExperienceObject = JSON.parse(localStorage.getItem('addExperienceObject'));
+          for (i=0;i<addExperienceObject.length;i++){
+            if (addExperienceObject[i].id == experienceList.id) {
+              addExperienceObject[i].companyname = experienceList.companyname;
+              addExperienceObject[i].time_period = experienceList.time_period;
+              addExperienceObject[i].role_company = experienceList.role_company;
+            }
+          }
+          localStorage.setItem('addExperienceObject', JSON.stringify(addExperienceObject));
 
-        var addExperienceObject = JSON.parse(localStorage.getItem('addExperienceObject')) || [];
-        var addExperienceNewItem = { 'companyname': experienceList.companyname, 'time_period': experienceList.time_period, 'role_company': experienceList.role_company};
+          // Update the selected Experience
+          angular.forEach(experienceList.experiences, function (p) {
+            if (p.id == experienceList.id) {
+              p.companyname = experienceList.companyname;
+              p.time_period = experienceList.time_period;
+              p.role_company = experienceList.role_company;
+            }
+          });
+        }else{
+          experienceList.experiences.push({id:expId, companyname: experienceList.companyname, time_period: experienceList.time_period, role_company: experienceList.role_company});
 
-        addExperienceObject.push(addExperienceNewItem);
-        localStorage.setItem('addExperienceObject', JSON.stringify(addExperienceObject));
+          var addExperienceObject = JSON.parse(localStorage.getItem('addExperienceObject')) || [];
+          var addExperienceNewItem = {'id': expId, 'companyname': experienceList.companyname, 'time_period': experienceList.time_period, 'role_company': experienceList.role_company};
+
+          addExperienceObject.push(addExperienceNewItem);
+          localStorage.setItem('addExperienceObject', JSON.stringify(addExperienceObject));
+        }
+        experienceList.companyname = '';
+        experienceList.time_period = '';
+        experienceList.role_company = '';
+        experienceList.id = '';
       }
 
       experienceList.removeExperience = function(experience) {
         var _index = experienceList.experiences.indexOf(experience);
+        let id = experience.id;
+        console.log(experience);
         experienceList.experiences.splice(_index, 1);
+
+        let addExperienceObject = JSON.parse(localStorage.getItem('addExperienceObject'));
+        for (i=0;i<addExperienceObject.length;i++)
+                    if (addExperienceObject[i].id == id) addExperienceObject.splice(i,1);
+        localStorage.setItem('addExperienceObject', JSON.stringify(addExperienceObject));
       }
 
       experienceList.bindSelectedData = function(experience) {
         experienceList.companyname = experience.companyname;
         experienceList.time_period = experience.time_period;
         experienceList.role_company = experience.role_company;
+        experienceList.id = experience.id;
       }
+
+      function guid() {
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+          s4() + '-' + s4() + s4() + s4();
+      }
+
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+    })
+    .controller('projectsCtrl', function($scope, $location, $log, $mdToast) {
+      var projectsList = this;
+      projectsList.projects = [];
     });
 
 })(angular);

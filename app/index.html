@@ -22,35 +22,41 @@
        ng-controller="tabCtrl"
        layout="column" class="demo" >
 
-    <script type="text/ng-template" id="partials/basicinfo.html">
-      <md-input-container class="md-block" flex-gt-sm>
-            <label>Full name</label>
-            <input ng-model="fullname">
-          </md-input-container>
-      <md-input-container class="md-block" flex-gt-sm>
-            <label>Email address</label>
-            <input ng-model="email">
-          </md-input-container>
-      <md-input-container class="md-block" flex-gt-sm>
-            <label>Phone number</label>
-            <input ng-model="phonenumber">
-          </md-input-container>
-      <md-input-container class="md-block" flex-gt-sm>
-            <label>Website</label>
-            <input ng-model="website">
-          </md-input-container>
-
-      <md-button class="md-raised md-primary" ng-click="saveBasicInfo()">Save</md-button>
-    </script>
     <script type="text/ng-template" id="partials/summary.html">
-      <md-input-container class="md-block">
-          <label>Write your nice little summery</label>
-          <textarea ng-model="biography" md-maxlength="150" rows="5" md-select-on-focus></textarea>
-        </md-input-container>
-      <md-button class="md-raised md-primary" ng-click="saveSummery()">Save</md-button>
+     <div class="tabsdemoStaticTabs">
+       <md-input-container class="md-block">
+           <label>Write your nice little summery</label>
+           <textarea ng-model="biography" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+         </md-input-container>
+       <md-button class="md-raised md-primary" ng-click="saveSummery()" md-colors="{background: 'deep-purple'}">Save</md-button>
+     </div>
     </script>
+
+    <script type="text/ng-template" id="partials/basicinfo.html">
+      <div class="tabsdemoStaticTabs">
+        <md-input-container class="md-block" flex-gt-sm>
+              <label>Full name (ex. Jon Doe)</label>
+              <input ng-model="fullname">
+            </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+              <label>Email address (ex. jon@gmail.com)</label>
+              <input ng-model="email">
+            </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+              <label>Phone number (ex. 2011234562)</label>
+              <input ng-model="phonenumber">
+            </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+              <label>Website (ex. http://www.jon-doe.com)</label>
+              <input ng-model="website">
+            </md-input-container>
+
+        <md-button class="md-raised md-primary" ng-click="saveBasicInfo()" md-colors="{background: 'deep-purple'}">Save</md-button>
+      </div>
+    </script>
+
     <script type="text/ng-template" id="partials/experiences.html">
-      <div ng-controller="experienceCtrl as experienceList">
+      <div ng-controller="experienceCtrl as experienceList" class="tabsdemoStaticTabs">
         <md-input-container class="md-block" flex-gt-sm>
               <label>Company Name (ex. Amazon)</label>
               <input ng-model="experienceList.companyname">
@@ -63,8 +69,9 @@
               <label>Role (ex. Software Engineer)</label>
               <input ng-model="experienceList.role_company">
             </md-input-container>
-        <md-button class="md-raised md-primary" ng-click="experienceList.addExperience()">Save</md-button>
-        <md-toolbar class="md-theme-light">
+        <input type="hidden" ng-model="experienceList.id">
+        <md-button class="md-raised md-primary" ng-click="experienceList.addExperience()" md-colors="{background: 'deep-purple'}">Save</md-button>
+        <md-toolbar class="md-theme-light" md-colors="{background: 'deep-purple'}">
           <h2 class="md-toolbar-tools">
             <span>Your Experiences</span>
           </h2>
@@ -77,36 +84,57 @@
                 <h3>{{experience.companyname}}</h3>
                 <h4>{{experience.time_period}}</h4>
                 <p>{{experience.role_company}}</p>
+                <input type="hidden" value="{{experience.id}}">
               </div>
-              <md-button class="md-secondary" ng-click="experienceList.bindSelectedData(experience)">Edit</md-button>
-              <md-button class="md-secondary" ng-click="experienceList.removeExperience(experience)">Remove</md-button>
+              <md-button class="md-secondary" ng-click="experienceList.bindSelectedData(experience)" md-colors="{background: 'deep-purple'}">Edit</md-button>
+              <md-button class="md-secondary" ng-click="experienceList.removeExperience(experience)" md-colors="{background: 'red'}">Remove</md-button>
               <md-divider ng-if="!$last"></md-divider>
             </md-list-item>
           </md-list>
         </md-content>
       </div>
     </script>
-    <script type="text/ng-template" id="partials/view4.html">
-      Tab #4
+
+    <script type="text/ng-template" id="partials/projects.html">
+      <div ng-controller="projectsCtrl as projectsList" class="tabsdemoStaticTabs">
+        <md-input-container class="md-block" flex-gt-sm>
+              <label>Project Title</label>
+              <input ng-model="projectsList.title">
+            </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+              <label>Duration</label>
+              <input ng-model="projectsList.duration">
+            </md-input-container>
+        <md-input-container class="md-block" flex-gt-sm>
+              <label>Description</label>
+              <textarea ng-model="projectsList.desc" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+            </md-input-container>
+        <input type="hidden" ng-model="projectsList.id">
+        <md-button class="md-raised md-primary" ng-click="projectsList.addProject()" md-colors="{background: 'deep-purple'}">Save</md-button>
+      </div>
     </script>
+
     <script type="text/ng-template" id="partials/view5.html">
       Tab #5
     </script>
+
     <script type="text/ng-template" id="partials/view6.html">
       Tab #6
     </script>
+
     <script type="text/ng-template" id="partials/view7.html">
       Tab #7
     </script>
-    <md-toolbar>
+
+    <md-toolbar md-colors="{background: 'deep-purple'}">
       <h2 class="md-toolbar-tools" layout-align="center center">
         <span>Resume Maker</span>
       </h2>
     </md-toolbar>
     <md-tabs md-stretch-tabs
              md-selected="selectedIndex">
-       <md-tab label="basic info"></md-tab>
        <md-tab label="summery"></md-tab>
+       <md-tab label="basic info"></md-tab>
        <md-tab label="experience"></md-tab>
        <md-tab label="projects"></md-tab>
        <md-tab label="education"></md-tab>
