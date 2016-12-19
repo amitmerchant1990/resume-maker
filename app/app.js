@@ -5,6 +5,10 @@
 
         $urlRouterProvider.otherwise('/tab/dash');
         $stateProvider
+        .state('view8', {
+            url: "/home",
+            templateUrl: "partials/home.html"
+        })
         .state('view2', {
             url: "/summary",
             templateUrl: "partials/summary.html"
@@ -41,24 +45,27 @@
         $scope.$watch('selectedIndex', function(current, old) {
             switch (current) {
                 case 0:
-                    $location.url("/summary");
+                    $location.url("/home");
                     break;
                 case 1:
-                    $location.url("/basicinfo");
+                    $location.url("/summary");
                     break;
                 case 2:
-                    $location.url("/experiences");
+                    $location.url("/basicinfo");
                     break;
                 case 3:
-                    $location.url("/projects");
+                    $location.url("/experiences");
                     break;
                 case 4:
-                    $location.url("/education");
+                    $location.url("/projects");
                     break;
                 case 5:
-                    $location.url("/skills");
+                    $location.url("/education");
                     break;
                 case 6:
+                    $location.url("/skills");
+                    break;
+                case 7:
                     $location.url("/download");
                     break;
             }
@@ -486,6 +493,7 @@
     .controller('downloadCtrl', function($scope, $location, $log, $mdToast) {
       var downloadList = this;
       downloadList.elem = [];
+      downloadList.skill = [];
 
       if(localStorage.getItem('basicInfoObject')!==null){
         let retrievedObject = localStorage.getItem('basicInfoObject');
@@ -506,6 +514,21 @@
       if(localStorage.getItem('addExperienceObject')!==null){
         let retrievedObject = localStorage.getItem('addExperienceObject');
         downloadList.elem = JSON.parse(retrievedObject);
+      }
+
+      if(localStorage.getItem('addProjectObject')!==null){
+        let retrievedObject = localStorage.getItem('addProjectObject');
+        downloadList.projects = JSON.parse(retrievedObject);
+      }
+
+      if(localStorage.getItem('addSkillsObject')!==null){
+        let retrievedObject = localStorage.getItem('addSkillsObject');
+        downloadList.skill = JSON.parse(retrievedObject);
+      }
+
+      if(localStorage.getItem('addEducationObject')!==null){
+        let retrievedObject = localStorage.getItem('addEducationObject');
+        downloadList.education = JSON.parse(retrievedObject);
       }
     });
 

@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Resume Maker</title>
+  <title>Resume Nation</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
@@ -23,13 +23,27 @@
        ng-controller="tabCtrl"
        layout="column" class="mainApp" >
 
+    <script type="text/ng-template" id="partials/home.html">
+      <div class="tabsdemoStaticTabs">
+        <div>
+          <div layout-align="center center" class="alignCenter md-headline mainHeadline">
+            Welcome to Resume Nation. Your one stop shop to create all the Resume of your dreams.
+            Resume building never been these easier. Fill in the required information like your personal info, work experience, education, skills
+            and voilà! at the end of process you'll have your beautiful resume. Try yourself!
+          </div>
+          <div layout-align="center center" class="alignCenter">
+            <md-button href="#/summary" class="md-raised md-primary" md-colors="{background: 'green'}">Start building your Resume</md-button>
+          </div>
+        </div>
+      </div>
+    </script>
     <script type="text/ng-template" id="partials/summary.html">
      <div class="tabsdemoStaticTabs">
        <md-input-container class="md-block">
            <label>Write your nice little summery</label>
            <textarea ng-model="biography" md-maxlength="450" rows="5" md-select-on-focus></textarea>
          </md-input-container>
-       <md-button class="md-raised md-primary" ng-click="saveSummery()" md-colors="{background: 'deep-purple'}">Save</md-button>
+       <md-button class="md-raised md-primary" ng-click="saveSummery()" md-colors="{background: 'green'}">Save</md-button>
      </div>
     </script>
 
@@ -52,7 +66,7 @@
               <input ng-model="website">
             </md-input-container>
 
-        <md-button class="md-raised md-primary" ng-click="saveBasicInfo()" md-colors="{background: 'deep-purple'}">Save</md-button>
+        <md-button class="md-raised md-primary" ng-click="saveBasicInfo()" md-colors="{background: 'green'}">Save</md-button>
       </div>
     </script>
 
@@ -71,10 +85,10 @@
               <input ng-model="experienceList.role_company" required>
             </md-input-container>
         <input type="hidden" ng-model="experienceList.id">
-        <md-button class="md-raised md-primary" ng-click="experienceList.addExperience()" md-colors="{background: 'deep-purple'}">Save</md-button>
+        <md-button class="md-raised md-primary" ng-click="experienceList.addExperience()" md-colors="{background: 'green'}">Save</md-button>
         <md-toolbar class="md-theme-light" md-colors="{background: 'deep-purple'}">
           <h2 class="md-toolbar-tools">
-            <span>Your Experiences</span>
+            <span>Your Work Experience</span>
           </h2>
         </md-toolbar>
 
@@ -92,6 +106,13 @@
               <md-divider ng-if="!$last"></md-divider>
             </md-list-item>
           </md-list>
+          <md-list  ng-show="!experienceList.experiences.length">
+            <md-list-item class="md-3-line">
+              <div class="md-list-item-text">
+                <p>Start adding your Work experience!</p>
+              </div>
+            </md-list-item>
+          </md-list>
         </md-content>
       </div>
     </script>
@@ -100,18 +121,18 @@
       <div ng-controller="projectsCtrl as projectsList" class="tabsdemoStaticTabs">
         <md-input-container class="md-block" flex-gt-sm>
               <label>Project Title</label>
-              <input ng-model="projectsList.title">
+              <input ng-model="projectsList.title" required>
             </md-input-container>
         <md-input-container class="md-block" flex-gt-sm>
-              <label>website</label>
-              <input ng-model="projectsList.website">
+              <label>Website</label>
+              <input ng-model="projectsList.website" required>
             </md-input-container>
         <md-input-container class="md-block" flex-gt-sm>
               <label>Description</label>
-              <textarea ng-model="projectsList.desc" md-maxlength="150" rows="5" md-select-on-focus></textarea>
+              <textarea ng-model="projectsList.desc" md-maxlength="300" rows="5" md-select-on-focus></textarea>
             </md-input-container>
         <input type="hidden" ng-model="projectsList.id">
-        <md-button class="md-raised md-primary" ng-click="projectsList.addProject()" md-colors="{background: 'deep-purple'}">Save</md-button>
+        <md-button class="md-raised md-primary" ng-click="projectsList.addProject()" md-colors="{background: 'green'}">Save</md-button>
 
         <md-toolbar class="md-theme-light" md-colors="{background: 'deep-purple'}">
           <h2 class="md-toolbar-tools">
@@ -133,6 +154,13 @@
               <md-divider ng-if="!$last"></md-divider>
             </md-list-item>
           </md-list>
+          <md-list  ng-show="!projectsList.projects.length">
+            <md-list-item class="md-3-line">
+              <div class="md-list-item-text">
+                <p>Start adding your Projects!</p>
+              </div>
+            </md-list-item>
+          </md-list>
         </md-content>
       </div>
     </script>
@@ -141,18 +169,18 @@
       <div ng-controller="educationCtrl as educationList" class="tabsdemoStaticTabs">
         <md-input-container class="md-block" flex-gt-sm>
               <label>College/University Name</label>
-              <input ng-model="educationList.school_name">
+              <input ng-model="educationList.school_name" required>
             </md-input-container>
         <md-input-container class="md-block" flex-gt-sm>
               <label>Degree Qualification (ex. Bechelor of Science)</label>
-              <input ng-model="educationList.degree">
+              <input ng-model="educationList.degree" required>
             </md-input-container>
         <md-input-container class="md-block" flex-gt-sm>
               <label>Duration (ex. July 2011 - June 2015)</label>
-              <input ng-model="educationList.duration">
+              <input ng-model="educationList.duration" required>
             </md-input-container>
         <input type="hidden" ng-model="projectsList.id">
-        <md-button class="md-raised md-primary" ng-click="educationList.addEducation()" md-colors="{background: 'deep-purple'}">Save</md-button>
+        <md-button class="md-raised md-primary" ng-click="educationList.addEducation()" md-colors="{background: 'green'}">Save</md-button>
 
         <md-toolbar class="md-theme-light" md-colors="{background: 'deep-purple'}">
           <h2 class="md-toolbar-tools">
@@ -174,6 +202,13 @@
               <md-divider ng-if="!$last"></md-divider>
             </md-list-item>
           </md-list>
+          <md-list  ng-show="!educationList.educations.length">
+            <md-list-item class="md-3-line">
+              <div class="md-list-item-text">
+                <p>Start adding your Education qualification!</p>
+              </div>
+            </md-list-item>
+          </md-list>
         </md-content>
       </div>
     </script>
@@ -182,10 +217,10 @@
       <div ng-controller="skillsCtrl as skillsList" class="tabsdemoStaticTabs">
         <md-input-container class="md-block" flex-gt-sm>
               <label>Add Skills (ex. Web development, Design, Swift, PHP)</label>
-              <input ng-model="skillsList.name">
+              <input ng-model="skillsList.name" required>
             </md-input-container>
         <input type="hidden" ng-model="skillsList.id">
-        <md-button class="md-raised md-primary" ng-click="skillsList.addSkill()" md-colors="{background: 'deep-purple'}">Save</md-button>
+        <md-button class="md-raised md-primary" ng-click="skillsList.addSkill()" md-colors="{background: 'green'}">Save</md-button>
 
         <md-toolbar class="md-theme-light" md-colors="{background: 'deep-purple'}">
           <h2 class="md-toolbar-tools">
@@ -203,6 +238,13 @@
               <md-button class="md-secondary" ng-click="skillsList.bindSelectedSkill(skill)" md-colors="{background: 'deep-purple'}">Edit</md-button>
               <md-button class="md-secondary" ng-click="skillsList.removeSkill(skill)" md-colors="{background: 'red'}">Remove</md-button>
               <md-divider ng-if="!$last"></md-divider>
+            </md-list-item>
+          </md-list>
+          <md-list  ng-show="!skillsList.skills.length">
+            <md-list-item class="md-3-line">
+              <div class="md-list-item-text">
+                <p>Start adding your Skills!</p>
+              </div>
             </md-list-item>
           </md-list>
         </md-content>
@@ -262,6 +304,20 @@
                 <div class="clear"></div>
               </section>
 
+              <section>
+                <div class="sectionTitle">
+                  <h1>Projects</h1>
+                </div>
+
+                <div class="sectionContent">
+                  <article ng-repeat="project in downloadList.projects">
+                    <h2>{{project.title}}</h2>
+                    <p class="subDetails" ng-show="project.website">{{project.website}}</p>
+                    <p>{{project.desc}}</p>
+                  </article>
+                </div>
+                <div class="clear"></div>
+              </section>
 
               <section>
                 <div class="sectionTitle">
@@ -270,14 +326,7 @@
 
                 <div class="sectionContent">
                   <ul class="keySkills">
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
-                    <li>A Key Skill</li>
+                    <li ng-repeat="skill in downloadList.skill">{{skill.name}}</li>
                   </ul>
                 </div>
                 <div class="clear"></div>
@@ -290,16 +339,10 @@
                 </div>
 
                 <div class="sectionContent">
-                  <article>
-                    <h2>College/University</h2>
-                    <p class="subDetails">Qualification</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim.</p>
-                  </article>
-
-                  <article>
-                    <h2>College/University</h2>
-                    <p class="subDetails">Qualification</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim.</p>
+                  <article ng-repeat="education in downloadList.education">
+                    <h2>{{education.school_name}}</h2>
+                    <p>{{education.degree}}</p>
+                    <p class="subDetails">{{education.duration}}</p>
                   </article>
                 </div>
                 <div class="clear"></div>
@@ -314,11 +357,12 @@
 
     <md-toolbar md-colors="{background: 'deep-purple'}" id="top_toolbar">
       <h2 class="md-toolbar-tools" layout-align="center center">
-        <span>Resume Maker</span>
+        <span>Resume Nation</span>
       </h2>
     </md-toolbar>
     <md-tabs md-stretch-tabs
              md-selected="selectedIndex" id="top_tabs">
+       <md-tab label="home"></md-tab>
        <md-tab label="summery"></md-tab>
        <md-tab label="basic info"></md-tab>
        <md-tab label="experience"></md-tab>
