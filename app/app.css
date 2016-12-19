@@ -36,3 +36,10 @@
 .mainApp{
   height: 100%;
 }
+
+@media print
+{
+    #top_toolbar { display: none; }
+    #top_tabs { display: none; }
+    #btnDownload {display: none;}
+}

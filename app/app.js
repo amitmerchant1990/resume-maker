@@ -22,16 +22,16 @@
             templateUrl: "partials/projects.html"
         })
         .state('view5', {
-            url: "/view5",
-            templateUrl: "partials/view5.html"
+            url: "/education",
+            templateUrl: "partials/education.html"
         })
         .state('view6', {
-            url: "/view6",
-            templateUrl: "partials/view6.html"
+            url: "/skills",
+            templateUrl: "partials/skills.html"
         })
         .state('view7', {
-            url: "/view7",
-            templateUrl: "partials/view7.html"
+            url: "/download",
+            templateUrl: "partials/download.html"
         })
         ;
     })
@@ -53,13 +53,13 @@
                     $location.url("/projects");
                     break;
                 case 4:
-                    $location.url("/view5");
+                    $location.url("/education");
                     break;
                 case 5:
-                    $location.url("/view6");
+                    $location.url("/skills");
                     break;
                 case 6:
-                    $location.url("/view7");
+                    $location.url("/download");
                     break;
             }
         });
@@ -110,6 +110,8 @@
         }
 
         $scope.saveBasicInfo = function() {
+          if(this.fullname==undefined || this.email==undefined)
+            return false;
           var fullname = this.fullname;
           var email = this.email;
           var phonenumber = this.phonenumber;
@@ -119,6 +121,12 @@
 
           // Put the object into storage
           localStorage.setItem('basicInfoObject', JSON.stringify(basicInfoObject));
+
+          $scope.fullname = fullname;
+          $scope.email = email;
+          $scope.phonenumber = phonenumber;
+          $scope.website = website;
+
           this.showSimpleToast();
         }
 
@@ -157,8 +165,13 @@
       }
 
       experienceList.addExperience = function(){
+        if(experienceList.companyname==undefined
+          || experienceList.time_period==undefined
+          ||experienceList.role_company==undefined)
+          return false;
+
         var expId = guid();
-        if(experienceList.id!=undefined){
+        if(experienceList.id!=undefined && experienceList.id!=''){
           let addExperienceObject = JSON.parse(localStorage.getItem('addExperienceObject'));
           for (i=0;i<addExperienceObject.length;i++){
             if (addExperienceObject[i].id == experienceList.id) {
@@ -225,6 +238,275 @@
     .controller('projectsCtrl', function($scope, $location, $log, $mdToast) {
       var projectsList = this;
       projectsList.projects = [];
+
+      if(JSON.parse(localStorage.getItem('addProjectObject'))){
+        var resolveAddProjectObject = JSON.parse(localStorage.getItem('addProjectObject'));
+        for(var i = 0; i < resolveAddProjectObject.length; i++) {
+            var obj = resolveAddProjectObject[i];
+
+            projectsList.projects.push({id: obj.id, title: obj.title, website: obj.website, desc: obj.desc});
+            //console.log(obj.id);
+        }
+      }
+
+      projectsList.addProject = function(){
+        if(projectsList.title==undefined
+          || projectsList.website==undefined
+          ||projectsList.desc==undefined)
+          return false;
+
+        var projectId = guid();
+        if(projectsList.id!=undefined && projectsList.id!=''){
+          let addProjectObject = JSON.parse(localStorage.getItem('addProjectObject'));
+          for (i=0;i<addProjectObject.length;i++){
+            if (addProjectObject[i].id == projectsList.id) {
+              addProjectObject[i].title = projectsList.title;
+              addProjectObject[i].website = projectsList.website;
+              addProjectObject[i].desc = projectsList.desc;
+            }
+          }
+          localStorage.setItem('addProjectObject', JSON.stringify(addProjectObject));
+
+          // Update the selected Project
+          angular.forEach(projectsList.projects, function (p) {
+            if (p.id == projectsList.id) {
+              p.title = projectsList.title;
+              p.website = projectsList.website;
+              p.desc = projectsList.desc;
+            }
+          });
+        }else{
+          projectsList.projects.push({id:projectId, title: projectsList.title, website: projectsList.website, desc: projectsList.desc});
+
+          var addProjectObject = JSON.parse(localStorage.getItem('addProjectObject')) || [];
+          var addProjectNewItem = {'id': projectId, 'title': projectsList.title, 'website': projectsList.website, 'desc': projectsList.desc};
+
+          addProjectObject.push(addProjectNewItem);
+          localStorage.setItem('addProjectObject', JSON.stringify(addProjectObject));
+        }
+        projectsList.title = '';
+        projectsList.website = '';
+        projectsList.desc = '';
+        projectsList.id = '';
+      }
+
+      projectsList.removeProject = function(project) {
+        var _index = projectsList.projects.indexOf(project);
+        let id = project.id;
+        console.log(project);
+        projectsList.projects.splice(_index, 1);
+
+        let addProjectObject = JSON.parse(localStorage.getItem('addProjectObject'));
+        for (i=0;i<addProjectObject.length;i++)
+                    if (addProjectObject[i].id == id) addProjectObject.splice(i,1);
+        localStorage.setItem('addProjectObject', JSON.stringify(addProjectObject));
+      }
+
+      projectsList.bindSelectedProject = function(project) {
+        projectsList.title = project.title;
+        projectsList.website = project.website;
+        projectsList.desc = project.desc;
+        projectsList.id = project.id;
+      }
+
+      function guid() {
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+          s4() + '-' + s4() + s4() + s4();
+      }
+
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+    })
+    .controller('educationCtrl', function($scope, $location, $log, $mdToast) {
+      var educationList = this;
+      educationList.educations = [];
+
+      if(JSON.parse(localStorage.getItem('addEducationObject'))){
+        var resolveAddEducationObject = JSON.parse(localStorage.getItem('addEducationObject'));
+        for(var i = 0; i < resolveAddEducationObject.length; i++) {
+            var obj = resolveAddEducationObject[i];
+
+            educationList.educations.push({id: obj.id, school_name: obj.school_name, degree: obj.degree, duration: obj.duration});
+            //console.log(obj.id);
+        }
+      }
+
+      educationList.addEducation = function(){
+        if(educationList.school_name==undefined
+          || educationList.degree==undefined
+          ||educationList.duration==undefined)
+          return false;
+
+        var eduId = guid();
+        if(educationList.id!=undefined && educationList.id!=''){
+          let addEducationObject = JSON.parse(localStorage.getItem('addEducationObject'));
+          for (i=0;i<addEducationObject.length;i++){
+            if (addEducationObject[i].id == educationList.id) {
+              addEducationObject[i].school_name = educationList.school_name;
+              addEducationObject[i].degree = educationList.degree;
+              addEducationObject[i].duration = educationList.duration;
+            }
+          }
+          localStorage.setItem('addEducationObject', JSON.stringify(addEducationObject));
+
+          // Update the selected Project
+          angular.forEach(educationList.educations, function (p) {
+            if (p.id == educationList.id) {
+              p.school_name = educationList.school_name;
+              p.degree = educationList.degree;
+              p.duration = educationList.duration;
+            }
+          });
+        }else{
+          educationList.educations.push({id:eduId, school_name: educationList.school_name, degree: educationList.degree, duration: educationList.duration});
+
+          var addEducationObject = JSON.parse(localStorage.getItem('addEducationObject')) || [];
+          var addEducationNewItem = {'id': eduId, 'school_name': educationList.school_name, 'degree': educationList.degree, 'duration': educationList.duration};
+
+          addEducationObject.push(addEducationNewItem);
+          localStorage.setItem('addEducationObject', JSON.stringify(addEducationObject));
+        }
+        educationList.school_name = '';
+        educationList.degree = '';
+        educationList.duration = '';
+        educationList.id = '';
+      }
+
+      educationList.removeEducation = function(education) {
+        var _index = educationList.educations.indexOf(education);
+        let id = education.id;
+        //console.log(education);
+        educationList.educations.splice(_index, 1);
+
+        let addEducationObject = JSON.parse(localStorage.getItem('addEducationObject'));
+        for (i=0;i<addEducationObject.length;i++)
+                    if (addEducationObject[i].id == id) addEducationObject.splice(i,1);
+        localStorage.setItem('addEducationObject', JSON.stringify(addEducationObject));
+      }
+
+      educationList.bindSelectedEducation = function(education) {
+        educationList.school_name = education.school_name;
+        educationList.degree = education.degree;
+        educationList.duration = education.duration;
+        educationList.id = education.id;
+      }
+
+      function guid() {
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+          s4() + '-' + s4() + s4() + s4();
+      }
+
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+    })
+    .controller('skillsCtrl', function($scope, $location, $log, $mdToast) {
+      var skillsList = this;
+      skillsList.skills = [];
+
+      if(JSON.parse(localStorage.getItem('addSkillsObject'))){
+        var resolveAddSkillsObject = JSON.parse(localStorage.getItem('addSkillsObject'));
+        for(var i = 0; i < resolveAddSkillsObject.length; i++) {
+            var obj = resolveAddSkillsObject[i];
+
+            skillsList.skills.push({id: obj.id, name: obj.name});
+            //console.log(obj.id);
+        }
+      }
+
+      skillsList.addSkill = function(){
+        console.log(skillsList.name);
+        if(skillsList.name==undefined)
+          return false;
+
+        var skillId = guid();
+        console.log(skillsList.id);
+        if(skillsList.id!=undefined && skillsList.id!=''){
+          let addSkillsObject = JSON.parse(localStorage.getItem('addSkillsObject'));
+          for (i=0;i<addSkillsObject.length;i++){
+            if (addSkillsObject[i].id == skillsList.id) {
+              addSkillsObject[i].name = skillsList.name;
+            }
+          }
+          localStorage.setItem('addSkillsObject', JSON.stringify(addSkillsObject));
+
+          // Update the selected Project
+          angular.forEach(skillsList.skills, function (p) {
+            if (p.id == skillsList.id) {
+              p.name = skillsList.name;
+            }
+          });
+        }else{
+          console.log('here');
+          skillsList.skills.push({id:skillId, name: skillsList.name});
+
+          var addSkillsObject = JSON.parse(localStorage.getItem('addSkillsObject')) || [];
+          var addSkillNewItem = {'id': skillId, 'name': skillsList.name};
+
+          addSkillsObject.push(addSkillNewItem);
+          localStorage.setItem('addSkillsObject', JSON.stringify(addSkillsObject));
+        }
+        skillsList.name = '';
+        skillsList.id = '';
+      }
+
+      skillsList.removeSkill = function(skill) {
+        var _index = skillsList.skills.indexOf(skill);
+        let id = skill.id;
+        //console.log(education);
+        skillsList.skills.splice(_index, 1);
+
+        let addSkillsObject = JSON.parse(localStorage.getItem('addSkillsObject'));
+        for (i=0;i<addSkillsObject.length;i++)
+                    if (addSkillsObject[i].id == id) addSkillsObject.splice(i,1);
+        localStorage.setItem('addSkillsObject', JSON.stringify(addSkillsObject));
+      }
+
+      skillsList.bindSelectedSkill = function(skill) {
+        skillsList.name = skill.name;
+        skillsList.id = skill.id;
+      }
+
+      function guid() {
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+          s4() + '-' + s4() + s4() + s4();
+      }
+
+      function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+    })
+    .controller('downloadCtrl', function($scope, $location, $log, $mdToast) {
+      var downloadList = this;
+      downloadList.elem = [];
+
+      if(localStorage.getItem('basicInfoObject')!==null){
+        let retrievedObject = localStorage.getItem('basicInfoObject');
+        let basicInfoObject =  JSON.parse(retrievedObject);
+
+        downloadList.fullname = basicInfoObject.fullname;
+        downloadList.email = basicInfoObject.email;
+        downloadList.phonenumber = basicInfoObject.phonenumber;
+        downloadList.website = basicInfoObject.website;
+      }
+
+      if(localStorage.getItem('biographyObject')!==null){
+        let retrievedObject = localStorage.getItem('biographyObject');
+        let biographyObject =  JSON.parse(retrievedObject);
+        downloadList.summary = biographyObject.biography;
+      }
+
+      if(localStorage.getItem('addExperienceObject')!==null){
+        let retrievedObject = localStorage.getItem('addExperienceObject');
+        downloadList.elem = JSON.parse(retrievedObject);
+      }
     });
 
 })(angular);
