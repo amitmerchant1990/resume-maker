@@ -32,3 +32,7 @@
 .tabsdemoStaticTabs{
     padding: 10px;
 }
+
+.mainApp{
+  height: 100%;
+}

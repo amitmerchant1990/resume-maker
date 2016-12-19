@@ -1,6 +1,6 @@
 (function(angular, undefined) {
     "use strict";
-    angular.module('dsntApp', ['ngMaterial', "ngSanitize", "ui.router"])
+    angular.module('resumeApp', ['ngMaterial', "ngSanitize", "ui.router"])
     .config(function($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.otherwise('/tab/dash');
