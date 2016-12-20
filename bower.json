@@ -1,8 +1,8 @@
 {
-  "name": "angular-seed",
-  "description": "A starter project for AngularJS",
+  "name": "resume-nation",
+  "description": "A resume generator app",
   "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
+  "homepage": "https://github.com/amitmerchant1990/resume-maker",
   "license": "MIT",
   "private": true,
   "dependencies": {
