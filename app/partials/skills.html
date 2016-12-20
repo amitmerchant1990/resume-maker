@@ -1,0 +1,35 @@
+<div ng-controller="skillsCtrl as skillsList" class="tabsdemoStaticTabs">
+  <md-input-container class="md-block" flex-gt-sm>
+        <label>Add Skills (ex. Web development, Design, Swift, PHP)</label>
+        <input ng-model="skillsList.name" required>
+      </md-input-container>
+  <input type="hidden" ng-model="skillsList.id">
+  <md-button class="md-raised md-primary" ng-click="skillsList.addSkill()" md-colors="{background: 'green'}">Save</md-button>
+
+  <md-toolbar class="md-theme-light" md-colors="{background: 'deep-purple'}">
+    <h2 class="md-toolbar-tools">
+      <span>Your Skills</span>
+    </h2>
+  </md-toolbar>
+
+  <md-content>
+    <md-list ng-repeat="skill in skillsList.skills">
+      <md-list-item class="md-3-line">
+        <div class="md-list-item-text">
+          <h3>{{skill.name}}</h3>
+          <input type="hidden" value="{{skill.id}}">
+        </div>
+        <md-button class="md-secondary" ng-click="skillsList.bindSelectedSkill(skill)" md-colors="{background: 'deep-purple'}">Edit</md-button>
+        <md-button class="md-secondary" ng-click="skillsList.removeSkill(skill)" md-colors="{background: 'red'}">Remove</md-button>
+        <md-divider ng-if="!$last"></md-divider>
+      </md-list-item>
+    </md-list>
+    <md-list  ng-show="!skillsList.skills.length">
+      <md-list-item class="md-3-line">
+        <div class="md-list-item-text">
+          <p>Start adding your Skills!</p>
+        </div>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</div>

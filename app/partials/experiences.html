@@ -1,0 +1,44 @@
+<div ng-controller="experienceCtrl as experienceList" class="tabsdemoStaticTabs">
+  <md-input-container class="md-block" flex-gt-sm>
+        <label>Company Name (ex. Amazon)</label>
+        <input ng-model="experienceList.companyname" required>
+      </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+        <label>Time Period (ex. July 2011 - Feb 2013)</label>
+        <input ng-model="experienceList.time_period" required>
+      </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+        <label>Role (ex. Software Engineer)</label>
+        <input ng-model="experienceList.role_company" required>
+      </md-input-container>
+  <input type="hidden" ng-model="experienceList.id">
+  <md-button class="md-raised md-primary" ng-click="experienceList.addExperience()" md-colors="{background: 'green'}">Save</md-button>
+  <md-toolbar class="md-theme-light" md-colors="{background: 'deep-purple'}">
+    <h2 class="md-toolbar-tools">
+      <span>Your Work Experience</span>
+    </h2>
+  </md-toolbar>
+
+  <md-content>
+    <md-list ng-repeat="experience in experienceList.experiences">
+      <md-list-item class="md-3-line">
+        <div class="md-list-item-text">
+          <h3>{{experience.companyname}}</h3>
+          <h4>{{experience.time_period}}</h4>
+          <p>{{experience.role_company}}</p>
+          <input type="hidden" value="{{experience.id}}">
+        </div>
+        <md-button class="md-secondary" ng-click="experienceList.bindSelectedData(experience)" md-colors="{background: 'deep-purple'}">Edit</md-button>
+        <md-button class="md-secondary" ng-click="experienceList.removeExperience(experience)" md-colors="{background: 'red'}">Remove</md-button>
+        <md-divider ng-if="!$last"></md-divider>
+      </md-list-item>
+    </md-list>
+    <md-list  ng-show="!experienceList.experiences.length">
+      <md-list-item class="md-3-line">
+        <div class="md-list-item-text">
+          <p>Start adding your Work experience!</p>
+        </div>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</div>

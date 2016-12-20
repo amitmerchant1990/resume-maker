@@ -5,7 +5,7 @@
 
         $urlRouterProvider.otherwise('/tab/dash');
         $stateProvider
-        .state('view8', {
+        .state('view1', {
             url: "/home",
             templateUrl: "partials/home.html"
         })
@@ -13,27 +13,27 @@
             url: "/summary",
             templateUrl: "partials/summary.html"
         })
-        .state('view1', {
+        .state('view3', {
             url: "/basicinfo",
             templateUrl: "partials/basicinfo.html"
         })
-        .state('view3', {
+        .state('view4', {
             url: "/experiences",
             templateUrl: "partials/experiences.html"
         })
-        .state('view4', {
+        .state('view5', {
             url: "/projects",
             templateUrl: "partials/projects.html"
         })
-        .state('view5', {
+        .state('view6', {
             url: "/education",
             templateUrl: "partials/education.html"
         })
-        .state('view6', {
+        .state('view7', {
             url: "/skills",
             templateUrl: "partials/skills.html"
         })
-        .state('view7', {
+        .state('view8', {
             url: "/download",
             templateUrl: "partials/download.html"
         })
@@ -69,6 +69,29 @@
                     $location.url("/download");
                     break;
             }
+        });
+
+        // For maintaing tab state while routing
+        $scope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParams) {
+          let currentState = toState.name;
+
+          if(currentState=='view1'){
+            $scope.selectedIndex = 0;
+          }else if(currentState=='view2'){
+            $scope.selectedIndex = 1;
+          }else if(currentState=='view3'){
+            $scope.selectedIndex = 2;
+          }else if(currentState=='view4'){
+            $scope.selectedIndex = 3;
+          }else if(currentState=='view5'){
+            $scope.selectedIndex = 4;
+          }else if(currentState=='view6'){
+            $scope.selectedIndex = 5;
+          }else if(currentState=='view7'){
+            $scope.selectedIndex = 6;
+          }else if(currentState=='view8'){
+            $scope.selectedIndex = 7;
+          }
         });
 
         var last = {

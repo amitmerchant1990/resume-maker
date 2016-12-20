@@ -1,0 +1,101 @@
+<div ng-controller="downloadCtrl as downloadList">
+  <div layout-align="center center">
+    <md-button class="md-raised md-primary" onclick="window.print();" md-colors="{background: 'deep-purple'}" id="btnDownload">Download Resume</md-button>
+  </div>
+  <div id="print-page" class="ng-scope theme-pacifico">
+
+    <div id="cv1" class="instaFade">
+      <div class="mainDetails">
+        <div id="name">
+          <h1 class="quickFade delayTwo">{{downloadList.fullname}}</h1>
+        </div>
+
+        <div id="contactDetails" class="quickFade delayFour">
+          <ul>
+            <li>e: {{downloadList.email}}</li>
+            <li>w: {{downloadList.website}}</li>
+            <li>m: {{downloadList.phonenumber}}</li>
+          </ul>
+        </div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="mainArea" class="quickFade delayFive">
+        <section>
+          <article>
+            <div class="sectionTitle">
+              <h1>Personal Profile</h1>
+            </div>
+
+            <div class="sectionContent">
+              <p>{{downloadList.summary}}</p>
+            </div>
+          </article>
+          <div class="clear"></div>
+        </section>
+
+
+        <section>
+          <div class="sectionTitle">
+            <h1>Work Experience</h1>
+          </div>
+
+          <div class="sectionContent">
+            <article ng-repeat="exp in downloadList.elem">
+              <h2>{{exp.role_company}} at {{exp.companyname}}</h2>
+              <p class="subDetails">{{exp.time_period}}</p>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id sapien quis libero interdum porttitor.</p>
+            </article>
+          </div>
+          <div class="clear"></div>
+        </section>
+
+        <section>
+          <div class="sectionTitle">
+            <h1>Projects</h1>
+          </div>
+
+          <div class="sectionContent">
+            <article ng-repeat="project in downloadList.projects">
+              <h2>{{project.title}}</h2>
+              <p class="subDetails" ng-show="project.website">{{project.website}}</p>
+              <p>{{project.desc}}</p>
+            </article>
+          </div>
+          <div class="clear"></div>
+        </section>
+
+        <section>
+          <div class="sectionTitle">
+            <h1>Key Skills</h1>
+          </div>
+
+          <div class="sectionContent">
+            <ul class="keySkills">
+              <li ng-repeat="skill in downloadList.skill">{{skill.name}}</li>
+            </ul>
+          </div>
+          <div class="clear"></div>
+        </section>
+
+
+        <section>
+          <div class="sectionTitle">
+            <h1>Education</h1>
+          </div>
+
+          <div class="sectionContent">
+            <article ng-repeat="education in downloadList.education">
+              <h2>{{education.school_name}}</h2>
+              <p>{{education.degree}}</p>
+              <p class="subDetails">{{education.duration}}</p>
+            </article>
+          </div>
+          <div class="clear"></div>
+        </section>
+
+      </div>
+      </div>
+
+  </div>
+</div>

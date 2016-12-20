@@ -1,0 +1,20 @@
+<div class="tabsdemoStaticTabs">
+  <md-input-container class="md-block" flex-gt-sm>
+        <label>Full name (ex. Jon Doe)</label>
+        <input ng-model="fullname" required>
+      </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+        <label>Email address (ex. jon@gmail.com)</label>
+        <input ng-model="email" required>
+      </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+        <label>Phone number (ex. 2011234562)</label>
+        <input ng-model="phonenumber">
+      </md-input-container>
+  <md-input-container class="md-block" flex-gt-sm>
+        <label>Website (ex. http://www.jon-doe.com)</label>
+        <input ng-model="website">
+      </md-input-container>
+
+  <md-button class="md-raised md-primary" ng-click="saveBasicInfo()" md-colors="{background: 'green'}">Save</md-button>
+</div>
