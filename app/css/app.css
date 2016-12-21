@@ -42,9 +42,19 @@
 }
 
 .mainHeadline{
-  padding-bottom: 50px;
-  padding-top: 50px;
-  color: #525252;
+  padding-bottom: 20px;
+  padding-top: 0px;
+  color: #FFFFFF;
+  line-height: 49px !important;
+  font-size: 25px !important;
+}
+
+.material-cust-medium-button {
+    padding: 10px !important;
+}
+
+.splash-header{
+  background-color: #673AB7;
 }
 
 @font-face {
