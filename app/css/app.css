@@ -57,6 +57,10 @@
   background-color: #673AB7;
 }
 
+.feature-icon{
+  font-size: 100px !important;
+}
+
 @font-face {
     font-family: 'propaganda'; /*a name to be used later*/
     src: url('/fonts/propaganda.ttf'); /*URL to font*/
