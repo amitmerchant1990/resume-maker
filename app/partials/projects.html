@@ -1,14 +1,17 @@
 <div ng-controller="projectsCtrl as projectsList" class="tabsdemoStaticTabs">
   <md-input-container class="md-block" flex-gt-sm>
         <label>Project Title</label>
+        <md-icon><i class="material-icons">&#xE8D8;</i></md-icon>
         <input ng-model="projectsList.title" required>
       </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
         <label>Website</label>
+        <md-icon><i class="material-icons">&#xE157;</i></md-icon>
         <input ng-model="projectsList.website" required>
       </md-input-container>
   <md-input-container class="md-block" flex-gt-sm>
         <label>Description</label>
+        <md-icon><i class="material-icons">&#xE896;</i></md-icon>
         <textarea ng-model="projectsList.desc" md-maxlength="300" rows="5" md-select-on-focus></textarea>
       </md-input-container>
   <input type="hidden" ng-model="projectsList.id">
