@@ -1,8 +1,15 @@
 <div ng-controller="downloadCtrl as downloadList">
-  <div layout-align="center center" class="alignCenter">
-    <md-button class="md-raised md-primary" onclick="window.print();" md-colors="{background: 'deep-purple'}" id="btnDownload">Download Resume</md-button>
+  <div layout-align="center center" layout="row" id="downloadHeader">
+    <span><md-button class="md-raised md-primary" onclick="window.print();" md-colors="{background: 'deep-purple'}" id="btnDownload">Download Resume</md-button></span>
+    <span>
+      <md-radio-group ng-model="resumeSelection" layout="row">
+        <md-radio-button value="Resume1">Resume1</md-radio-button>
+        <md-radio-button value="Resume2"> Resume2 </md-radio-button>
+      </md-radio-group>
+    </span>
+
   </div>
-  <div id="print-page" class="ng-scope theme-pacifico">
+  <div id="resume_1" class="ng-scope theme-pacifico" ng-show="resumeSelection == 'Resume1'">
 
     <div id="cv1" class="instaFade">
       <div class="mainDetails">
@@ -97,5 +104,81 @@
       </div>
       </div>
 
+  </div>
+  <div id='resume_2' ng-show="resumeSelection == 'Resume2'">
+    <div class="page">
+            <div class="section row">
+                <h1 class="col"><span style="font-weight:700">{{downloadList.fullname}}</span></h1>
+                <div class="contact-info col-right">
+                    <div>{{downloadList.phonenumber}}</div>
+                    <div><a href="mailto:{{downloadList.email}}">{{downloadList.email}}</a></div>
+                    <div><a href="{{downloadList.website}}">{{downloadList.website}}</a></div>
+                </div>
+            </div>
+            <div class="section row">
+                <h2 class="col">Objective</h2>
+                <div class="section-text col-right">
+                  {{downloadList.summary}}
+                </div>
+            </div>
+            <div class="section row">
+                <h2 class="col">Skills</h2>
+                <div class="section-text col-right row">
+                    <ul class="skills" style="width:25%">
+                        <li ng-repeat="skill in downloadList.skill">{{skill.name}}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="section row">
+                <h2 class="col">Education</h2>
+                <div class="section-text col-right" ng-repeat="education in downloadList.education">
+                    <h3><span class="emph">{{education.degree}}</h3>
+                    <div>{{education.school_name}}</div>
+                    <div class="row">
+                        <!--<div class="col light">New York, USA</div>-->
+                        <div class="col-right light">{{education.duration}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="section row">
+                <h2 class="col">Experience</h2>
+                <div class="section-text col-right" ng-repeat="exp in downloadList.elem">
+                    <div class="row">
+                        <div class="col">
+                            <h3>{{exp.companyname}}</h3>
+                        </div>
+                    </div>
+                    <div class="row subsection">
+                        <div class="emph col">{{exp.role_company}}</div>
+                        <div class="col-right light">{{exp.time_period}}</div>
+                    </div>
+                    <div>Started out as a tool to help collect data for a research project - <i>Lingering emotion in the experience of beauty</i>, is now a comprehensive app that simulates every step of the experiment and automates the entire data collection process.
+                    </div>
+                    <ul class="desc">
+                        <li>Designed and developed a mobile-friendly responsive web app from the ground-up that tracks touch events to calibrate and measure the distance between two fingers and detects gestures for UI interactions.</li>
+                        <li>Ported the web app to the macintosh platform, using node-webkit and developed a native node.js module that detects and generates DOM-friendly touch events from a mac trackpad.</li>
+                        <li>Configured and developed a RESTful server that extracts audio data from video recordings containing speech while trimming background silence and normalizing gain.</li>
+                        <li>Devised and implemented a method to safely play user-selected music within the web app using an intermediary server that regulates and streams audio data from a popular music streaming service.</li>
+                        <li>Implemented interactive audio and visual feedback using the HTML5 web audio api and SVG.</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="section row">
+                <h2 class="col">Projects</h2>
+                <div class="section-text col-right" ng-repeat="project in downloadList.projects">
+                    <div class="row">
+                        <div class="col">
+                            <h3>{{project.title}}</h3>
+                        </div>
+                    </div>
+                    <div class="row subsection">
+                        <div class="emph col">{{project.website}}</div>
+                    </div>
+                    <div class="desc">
+                      {{project.desc}}
+                    </div>
+                </div>
+            </div>
+        </div>
   </div>
 </div>

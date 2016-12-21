@@ -518,6 +518,8 @@
       downloadList.elem = [];
       downloadList.skill = [];
 
+      $scope.resumeSelection = 'Resume1';
+
       if(localStorage.getItem('basicInfoObject')!==null){
         let retrievedObject = localStorage.getItem('basicInfoObject');
         let basicInfoObject =  JSON.parse(retrievedObject);

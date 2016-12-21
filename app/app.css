@@ -47,9 +47,29 @@
   color: #525252;
 }
 
+@font-face {
+    font-family: 'propaganda'; /*a name to be used later*/
+    src: url('/fonts/propaganda.ttf'); /*URL to font*/
+}
+
+@font-face {
+    font-family: 'MysteryQuest'; /*a name to be used later*/
+    src: url('/fonts/MysteryQuest-Regular.ttf'); /*URL to font*/
+}
+
+@font-face {
+    font-family: 'LazenbyCompSmooth'; /*a name to be used later*/
+    src: url('/fonts/LazenbyCompSmooth.ttf'); /*URL to font*/
+}
+
+.nameHeader{
+  font-family: 'MysteryQuest';
+  font-size: 36px;
+}
+
 @media print
 {
     #top_toolbar { display: none; }
     #top_tabs { display: none; }
-    #btnDownload {display: none;}
+    #downloadHeader {display: none;}
 }
