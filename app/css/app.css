@@ -76,6 +76,28 @@
   padding-bottom: 20px;
 }
 
+.gifSection{
+  background-color: #f1e8ff;
+}
+
+.gifImage{
+  padding: 20px;
+}
+
+footer {
+  background-color: #673AB7;
+}
+
+footer p{
+  color: #ffffff;
+  margin-bottom: 0px;
+  padding: 20px;
+}
+
+footer a{
+  color: #ffffff;
+}
+
 @font-face {
     font-family: 'propaganda'; /*a name to be used later*/
     src: url('/fonts/propaganda.ttf'); /*URL to font*/
