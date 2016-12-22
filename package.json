@@ -6,6 +6,9 @@
   "repository": "https://github.com/amitmerchant1990/resume-maker",
   "license": "MIT",
   "author": "Amit Merchant <bullredeyes@gmail.com>",
+  "dependencies": {
+    "bower": "^1.7.7"
+  },
   "devDependencies": {
     "bower": "^1.7.7",
     "http-server": "^0.9.0",
