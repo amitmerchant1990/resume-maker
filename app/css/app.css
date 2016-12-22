@@ -61,6 +61,21 @@
   font-size: 100px !important;
 }
 
+.functionalityIcons{
+  padding: 40px;
+}
+
+.funcText{
+  font-size: 20px;
+  font-weight: bold;
+  color: #5a5a5a;
+  text-align: center;
+}
+
+.startBtn{
+  padding-bottom: 20px;
+}
+
 @font-face {
     font-family: 'propaganda'; /*a name to be used later*/
     src: url('/fonts/propaganda.ttf'); /*URL to font*/
