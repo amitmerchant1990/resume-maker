@@ -7,6 +7,7 @@
   "license": "MIT",
   "author": "Amit Merchant <bullredeyes@gmail.com>",
   "dependencies": {
+    "express": "3.x",
     "bower": "^1.7.7",
     "http-server": "^0.9.0"
   },
@@ -28,7 +29,7 @@
     "postupdate-deps": "bower update",
 
     "prestart": "npm install",
-    "start": "http-server -a localhost -p 8000 -c-1 ./app",
+    "start": "node ./app/web.js",
 
     "pretest": "npm install",
     "test": "karma start karma.conf.js",
