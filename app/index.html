@@ -14,34 +14,43 @@
   <link rel="stylesheet" href="css/app.css">
   <link rel="stylesheet" href="css/resume-one.css">
   <link rel="stylesheet" href="css/resume-two.css">
+  <script src="js/jquery.min.js"></script>
   <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
   <link rel="stylesheet" href="css/angular-material.min.css">
+  <script>
+    $(window).load(function() {
+      // Animate loader off screen
+      $(".se-pre-con").fadeOut("slow");;
+    });
+  </script>
 </head>
 <body>
-
+  <div class="se-pre-con"></div>
 
   <div ng-app="resumeApp"
        ng-controller="tabCtrl"
        layout="column" class="mainApp" >
-
-    <md-toolbar md-colors="{background: 'deep-purple'}" id="top_toolbar" class="mainToolbar">
-      <h2 class="md-toolbar-tools" layout-align="center center">
-        <span class="nameHeader">Resume Nation</span>
-      </h2>
-    </md-toolbar>
-    <md-tabs md-stretch-tabs
-             md-selected="selectedIndex" id="top_tabs">
-       <md-tab label="home"></md-tab>
-       <md-tab label="summery"></md-tab>
-       <md-tab label="basic info"></md-tab>
-       <md-tab label="experience"></md-tab>
-       <md-tab label="projects"></md-tab>
-       <md-tab label="education"></md-tab>
-       <md-tab label="skills"></md-tab>
-       <md-tab label="download"></md-tab>
-    </md-tabs>
-
-    <div id="content" ui-view flex> </div>
+    <div class="stickyHeader">
+      <md-toolbar md-colors="{background: 'deep-purple'}" id="top_toolbar" class="mainToolbar">
+        <h2 class="md-toolbar-tools" layout-align="center center">
+          <span class="nameHeader">Resume Nation</span>
+        </h2>
+      </md-toolbar>
+      <md-tabs md-stretch-tabs
+               md-selected="selectedIndex" id="top_tabs" class="mainTabs">
+         <md-tab label="home"></md-tab>
+         <md-tab label="summery"></md-tab>
+         <md-tab label="basic info"></md-tab>
+         <md-tab label="experience"></md-tab>
+         <md-tab label="projects"></md-tab>
+         <md-tab label="education"></md-tab>
+         <md-tab label="skills"></md-tab>
+         <md-tab label="download"></md-tab>
+      </md-tabs>
+    </div>
+    <div class="stickyContent">
+      <div id="content" ui-view flex> </div>
+    </div>
 
   </div>
 

@@ -1,7 +1,67 @@
 (function(angular, undefined) {
     "use strict";
-    angular.module('resumeApp', ['ngMaterial', "ngSanitize", "ui.router"])
-    .config(function($stateProvider, $urlRouterProvider) {
+    var resumeApp = angular.module('resumeApp', ['ngMaterial', "ngSanitize", "ui.router"]);
+
+    //Angular Service to provide Toast across all controller
+    resumeApp.service('toastService', function ($mdToast) {
+      var last = {
+          bottom: false,
+          top: true,
+          left: false,
+          right: true
+        };
+
+      var toastPosition = angular.extend({},last);
+
+      this.getToastPosition = function() {
+        sanitizePosition();
+
+        return Object.keys(toastPosition)
+          .filter(function(pos) { return toastPosition[pos]; })
+          .join(' ');
+      };
+
+      this.showSimpleToast = function() {
+        var pinTo = this.getToastPosition();
+
+        $mdToast.show(
+          $mdToast.simple()
+            .textContent('Saved.')
+            .position(pinTo )
+            .hideDelay(3000)
+        );
+      };
+
+      function sanitizePosition() {
+        var current = toastPosition;
+
+        if ( current.bottom && last.top ) current.top = false;
+        if ( current.top && last.bottom ) current.bottom = false;
+        if ( current.right && last.left ) current.left = false;
+        if ( current.left && last.right ) current.right = false;
+
+        last = angular.extend({},current);
+      }
+    });
+
+    /*
+    Angular Service to provide common utility functions
+    across all controller
+    */
+    resumeApp.service('utilService', function(){
+      this.guid = function() {
+        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+          s4() + '-' + s4() + s4() + s4();
+      }
+
+      var s4 = function() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+          .toString(16)
+          .substring(1);
+      }
+    });
+
+    resumeApp.config(function($stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.otherwise('/tab/dash');
         $stateProvider
@@ -39,7 +99,8 @@
         })
         ;
     })
-    .controller('tabCtrl', function($scope, $location, $log, $mdToast) {
+
+    resumeApp.controller('tabCtrl', function($scope, toastService, utilService, $location, $log) {
         $scope.selectedIndex = 0;
 
         $scope.$watch('selectedIndex', function(current, old) {
@@ -94,34 +155,6 @@
           }
         });
 
-        var last = {
-            bottom: false,
-            top: true,
-            left: false,
-            right: true
-          };
-
-        $scope.toastPosition = angular.extend({},last);
-
-        $scope.getToastPosition = function() {
-          sanitizePosition();
-
-          return Object.keys($scope.toastPosition)
-            .filter(function(pos) { return $scope.toastPosition[pos]; })
-            .join(' ');
-        };
-
-        function sanitizePosition() {
-          var current = $scope.toastPosition;
-
-          if ( current.bottom && last.top ) current.top = false;
-          if ( current.top && last.bottom ) current.bottom = false;
-          if ( current.right && last.left ) current.left = false;
-          if ( current.left && last.right ) current.right = false;
-
-          last = angular.extend({},current);
-        }
-
         if(localStorage.getItem('basicInfoObject')!==null){
           var retrievedObject = localStorage.getItem('basicInfoObject');
           let basicInfoObject =  JSON.parse(retrievedObject);
@@ -157,7 +190,7 @@
           $scope.phonenumber = phonenumber;
           $scope.website = website;
 
-          this.showSimpleToast();
+          toastService.showSimpleToast();
         }
 
         $scope.saveSummery = function(){
@@ -166,21 +199,11 @@
           var biographyObject = {'biography': biography};
 
           localStorage.setItem('biographyObject', JSON.stringify(biographyObject));
-          this.showSimpleToast();
+          toastService.showSimpleToast();
         }
-
-        $scope.showSimpleToast = function() {
-          var pinTo = $scope.getToastPosition();
-
-          $mdToast.show(
-            $mdToast.simple()
-              .textContent('Saved.')
-              .position(pinTo )
-              .hideDelay(3000)
-          );
-        };
     })
-    .controller('experienceCtrl', function($scope, $location, $log, $mdToast) {
+
+    resumeApp.controller('experienceCtrl', function($scope, toastService, utilService, $location, $log) {
       var experienceList = this;
       experienceList.experiences = [];
 
@@ -201,7 +224,7 @@
           ||experienceList.desc==undefined)
           return false;
 
-        var expId = guid();
+        var expId = utilService.guid();
         if(experienceList.id!=undefined && experienceList.id!=''){
           let addExperienceObject = JSON.parse(localStorage.getItem('addExperienceObject'));
           for (i=0;i<addExperienceObject.length;i++){
@@ -237,6 +260,8 @@
         experienceList.role_company = '';
         experienceList.desc = '';
         experienceList.id = '';
+
+        toastService.showSimpleToast();
       }
 
       experienceList.removeExperience = function(experience) {
@@ -258,19 +283,9 @@
         experienceList.desc = experience.desc;
         experienceList.id = experience.id;
       }
-
-      function guid() {
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-          s4() + '-' + s4() + s4() + s4();
-      }
-
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
     })
-    .controller('projectsCtrl', function($scope, $location, $log, $mdToast) {
+
+    resumeApp.controller('projectsCtrl', function($scope, toastService, utilService, $location, $log) {
       var projectsList = this;
       projectsList.projects = [];
 
@@ -290,7 +305,7 @@
           ||projectsList.desc==undefined)
           return false;
 
-        var projectId = guid();
+        var projectId = utilService.guid();
         if(projectsList.id!=undefined && projectsList.id!=''){
           let addProjectObject = JSON.parse(localStorage.getItem('addProjectObject'));
           for (i=0;i<addProjectObject.length;i++){
@@ -323,6 +338,8 @@
         projectsList.website = '';
         projectsList.desc = '';
         projectsList.id = '';
+
+        toastService.showSimpleToast();
       }
 
       projectsList.removeProject = function(project) {
@@ -343,19 +360,9 @@
         projectsList.desc = project.desc;
         projectsList.id = project.id;
       }
-
-      function guid() {
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-          s4() + '-' + s4() + s4() + s4();
-      }
-
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
     })
-    .controller('educationCtrl', function($scope, $location, $log, $mdToast) {
+
+    resumeApp.controller('educationCtrl', function($scope, toastService, utilService, $location, $log) {
       var educationList = this;
       educationList.educations = [];
 
@@ -375,7 +382,7 @@
           ||educationList.duration==undefined)
           return false;
 
-        var eduId = guid();
+        var eduId = utilService.guid();
         if(educationList.id!=undefined && educationList.id!=''){
           let addEducationObject = JSON.parse(localStorage.getItem('addEducationObject'));
           for (i=0;i<addEducationObject.length;i++){
@@ -408,6 +415,8 @@
         educationList.degree = '';
         educationList.duration = '';
         educationList.id = '';
+
+        toastService.showSimpleToast();
       }
 
       educationList.removeEducation = function(education) {
@@ -429,18 +438,10 @@
         educationList.id = education.id;
       }
 
-      function guid() {
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-          s4() + '-' + s4() + s4() + s4();
-      }
 
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
     })
-    .controller('skillsCtrl', function($scope, $location, $log, $mdToast) {
+
+    resumeApp.controller('skillsCtrl', function($scope, toastService, utilService, $location, $log) {
       var skillsList = this;
       skillsList.skills = [];
 
@@ -459,7 +460,7 @@
         if(skillsList.name==undefined)
           return false;
 
-        var skillId = guid();
+        var skillId = utilService.guid();
         console.log(skillsList.id);
         if(skillsList.id!=undefined && skillsList.id!=''){
           let addSkillsObject = JSON.parse(localStorage.getItem('addSkillsObject'));
@@ -488,6 +489,8 @@
         }
         skillsList.name = '';
         skillsList.id = '';
+
+        toastService.showSimpleToast();
       }
 
       skillsList.removeSkill = function(skill) {
@@ -507,18 +510,9 @@
         skillsList.id = skill.id;
       }
 
-      function guid() {
-        return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
-          s4() + '-' + s4() + s4() + s4();
-      }
-
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
     })
-    .controller('downloadCtrl', function($scope, $location, $log, $mdToast) {
+
+    resumeApp.controller('downloadCtrl', function($scope, $location, $log, $mdToast) {
       var downloadList = this;
       downloadList.elem = [];
       downloadList.skill = [];
