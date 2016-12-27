@@ -199,6 +199,9 @@
           var biographyObject = {'biography': biography};
 
           localStorage.setItem('biographyObject', JSON.stringify(biographyObject));
+
+          $scope.biography = biography;
+
           toastService.showSimpleToast();
         }
     })

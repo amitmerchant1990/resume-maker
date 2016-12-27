@@ -12,23 +12,23 @@
   <div id="resume_1" class="ng-scope theme-pacifico" ng-show="resumeSelection == 'Resume1'">
 
     <div id="cv1" class="instaFade centerResume">
-      <div class="mainDetails">
-        <div id="name">
+      <div class="mainDetails" ng-show="downloadList.fullname">
+        <div id="name" ng-show="downloadList.fullname">
           <h1 class="quickFade delayTwo">{{downloadList.fullname}}</h1>
         </div>
 
         <div id="contactDetails" class="quickFade delayFour">
           <ul>
-            <li>e: {{downloadList.email}}</li>
-            <li>w: {{downloadList.website}}</li>
-            <li>m: {{downloadList.phonenumber}}</li>
+            <li ng-show="downloadList.email">e: {{downloadList.email}}</li>
+            <li ng-show="downloadList.website">w: {{downloadList.website}}</li>
+            <li ng-show="downloadList.phonenumber">m: {{downloadList.phonenumber}}</li>
           </ul>
         </div>
         <div class="clear"></div>
       </div>
 
       <div id="mainArea" class="quickFade delayFive">
-        <section>
+        <section ng-show="downloadList.summary">
           <article>
             <div class="sectionTitle">
               <h1>Personal Profile</h1>
@@ -42,7 +42,7 @@
         </section>
 
 
-        <section>
+        <section ng-show="downloadList.elem.length">
           <div class="sectionTitle">
             <h1>Work Experience</h1>
           </div>
@@ -51,13 +51,13 @@
             <article ng-repeat="exp in downloadList.elem">
               <h2>{{exp.role_company}} at {{exp.companyname}}</h2>
               <p class="subDetails">{{exp.time_period}}</p>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ultricies massa et erat luctus hendrerit. Curabitur non consequat enim. Vestibulum bibendum mattis dignissim. Proin id sapien quis libero interdum porttitor.</p>
+              <p>{{exp.desc}}</p>
             </article>
           </div>
           <div class="clear"></div>
         </section>
 
-        <section>
+        <section ng-show="downloadList.projects.length">
           <div class="sectionTitle">
             <h1>Projects</h1>
           </div>
@@ -72,7 +72,7 @@
           <div class="clear"></div>
         </section>
 
-        <section>
+        <section ng-show="downloadList.skill.length">
           <div class="sectionTitle">
             <h1>Key Skills</h1>
           </div>
@@ -86,7 +86,7 @@
         </section>
 
 
-        <section>
+        <section ng-show="downloadList.education.length">
           <div class="sectionTitle">
             <h1>Education</h1>
           </div>
@@ -107,21 +107,21 @@
   </div>
   <div id='resume_2' ng-show="resumeSelection == 'Resume2'">
     <div class="page">
-            <div class="section row">
+            <div class="section row" ng-show="downloadList.fullname">
                 <h1 class="col"><span style="font-weight:700">{{downloadList.fullname}}</span></h1>
                 <div class="contact-info col-right">
-                    <div>{{downloadList.phonenumber}}</div>
-                    <div>{{downloadList.email}}</div>
-                    <div>{{downloadList.website}}</div>
+                    <div ng-show="downloadList.phonenumber">{{downloadList.phonenumber}}</div>
+                    <div ng-show="downloadList.email">{{downloadList.email}}</div>
+                    <div ng-show="downloadList.website">{{downloadList.website}}</div>
                 </div>
             </div>
-            <div class="section row">
+            <div class="section row" ng-show="downloadList.summary">
                 <h2 class="col">Objective</h2>
                 <div class="section-text col-right">
                   {{downloadList.summary}}
                 </div>
             </div>
-            <div class="section row">
+            <div class="section row" ng-show="downloadList.skill.length">
                 <h2 class="col">Skills</h2>
                 <div class="section-text col-right row">
                     <ul class="skills" style="width:25%">
@@ -129,7 +129,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="section row">
+            <div class="section row" ng-show="downloadList.education.length">
                 <h2 class="col">Education</h2>
                 <div class="section-text col-right" ng-repeat="education in downloadList.education">
                     <h3><span class="emph">{{education.degree}}</h3>
@@ -140,7 +140,7 @@
                     </div>
                 </div>
             </div>
-            <div class="section row">
+            <div class="section row" ng-show="downloadList.elem.length">
                 <h2 class="col">Experience</h2>
                 <div class="section-text col-right" ng-repeat="exp in downloadList.elem">
                     <div class="row">
@@ -157,7 +157,7 @@
                     </div>
                 </div>
             </div>
-            <div class="section row">
+            <div class="section row" ng-show="downloadList.projects.length">
                 <h2 class="col">Projects</h2>
                 <div class="section-text col-right" ng-repeat="project in downloadList.projects">
                     <div class="row">
