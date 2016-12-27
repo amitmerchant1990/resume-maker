@@ -15,12 +15,13 @@ body { margin: 0;
       font-style:italic;
      margin: 5px 0 0;
      font-size: 40px;
-     color:#ba0018;
+     color:#000000;
      padding: 0 10px 10px;
      border-radius:2px;
      font-family: 'merriweather', sans-serif;
 }
-.page h2 { color: #ba0018;
+.page h2 {
+    color: #000000;
      width: 150px;
      font-size: 18px;
      padding-left: 20px;
