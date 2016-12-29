@@ -45,8 +45,10 @@
   padding-bottom: 20px;
   padding-top: 0px;
   color: #FFFFFF;
-  line-height: 44px !important;
-  font-size: 25px !important;
+  line-height: 32px !important;
+  font-size: 20px !important;
+  max-width: 595px !important;
+  margin: 0 auto;
 }
 
 .material-cust-medium-button {
@@ -66,7 +68,7 @@
 }
 
 .funcText{
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   color: #5a5a5a;
   text-align: center;
@@ -131,6 +133,16 @@ footer a{
 	height: 100%;
 	z-index: 9999;
 	background: url(../images/balls.gif) center no-repeat #fff;
+}
+
+.noContent{
+  left: 0;
+  line-height: 56px;
+  margin-top: -100px;
+  position: absolute;
+  text-align: center;
+  top: 50%;
+  width: 100%;
 }
 
 @font-face {
