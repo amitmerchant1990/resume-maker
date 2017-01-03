@@ -16,7 +16,10 @@ resumeApp.controller('experienceCtrl', function($scope, toastService, utilServic
     if(experienceList.companyname==undefined
       || experienceList.time_period==undefined
       ||experienceList.role_company==undefined
-      ||experienceList.desc==undefined)
+      ||experienceList.desc==undefined
+      || experienceList.companyname==''
+        || experienceList.time_period==''
+        ||experienceList.role_company=='')
       return false;
 
     var expId = utilService.guid();

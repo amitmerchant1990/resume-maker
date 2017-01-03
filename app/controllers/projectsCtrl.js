@@ -15,7 +15,9 @@ resumeApp.controller('projectsCtrl', function($scope, toastService, utilService,
   projectsList.addProject = function(){
     if(projectsList.title==undefined
       || projectsList.website==undefined
-      ||projectsList.desc==undefined)
+      ||projectsList.desc==undefined
+      || projectsList.title==''
+      || projectsList.website=='')
       return false;
 
     var projectId = utilService.guid();

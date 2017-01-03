@@ -14,7 +14,7 @@ resumeApp.controller('skillsCtrl', function($scope, toastService, utilService, $
 
   skillsList.addSkill = function(){
     console.log(skillsList.name);
-    if(skillsList.name==undefined)
+    if(skillsList.name==undefined || skillsList.name=='')
       return false;
 
     var skillId = utilService.guid();

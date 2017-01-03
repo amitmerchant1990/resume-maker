@@ -15,7 +15,10 @@ resumeApp.controller('educationCtrl', function($scope, toastService, utilService
   educationList.addEducation = function(){
     if(educationList.school_name==undefined
       || educationList.degree==undefined
-      ||educationList.duration==undefined)
+      ||educationList.duration==undefined
+      || educationList.school_name==''
+        || educationList.degree==''
+        ||educationList.duration=='')
       return false;
 
     var eduId = utilService.guid();

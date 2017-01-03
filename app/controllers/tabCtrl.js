@@ -95,6 +95,9 @@ resumeApp.controller('tabCtrl', function($scope, toastService, utilService, $loc
       var biographyObject = {'biography': biography};
 
       localStorage.setItem('biographyObject', JSON.stringify(biographyObject));
+
+      $scope.biography = this.biography;
+
       toastService.showSimpleToast();
     }
 })
