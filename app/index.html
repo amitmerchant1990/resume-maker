@@ -41,7 +41,7 @@
   <div class="se-pre-con"></div>
 
   <div ng-app="resumeApp"
-       ng-controller="tabCtrl"
+       ng-controller="tabCtrl as tabCtrl"
        layout="column" class="mainApp" >
     <div class="stickyHeader">
       <md-toolbar md-colors="{background: 'deep-purple'}" id="top_toolbar" class="mainToolbar">
@@ -63,6 +63,25 @@
     </div>
     <div class="stickyContent">
       <div id="content" ui-view flex> </div>
+      <div class="lock-size fabSpeedDialdemoBasicUsage " layout="row" layout-align="center center" ng-cloak>
+        <md-fab-speed-dial md-open="tabCtrl.isOpen" md-direction="{{tabCtrl.selectedDirection}}"
+                           ng-class="tabCtrl.selectedMode">
+          <md-fab-trigger>
+            <md-button aria-label="menu" class="md-fab md-accent">
+              <md-icon class="material-icons">menu</md-icon>
+            </md-button>
+          </md-fab-trigger>
+
+          <md-fab-actions>
+            <md-button aria-label="Facebook" class="md-fab md-raised md-mini">
+              <md-icon md-svg-src = "/images/svg/facebook-box.svg"></md-icon>
+            </md-button>
+            <md-button aria-label="Twitter" class="md-fab md-raised md-mini">
+              <md-icon md-svg-src = "/images/svg/twitter.svg"></md-icon>
+            </md-button>
+          </md-fab-actions>
+        </md-fab-speed-dial>
+      </div>
     </div>
 
   </div>

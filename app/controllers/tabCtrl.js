@@ -100,4 +100,11 @@ resumeApp.controller('tabCtrl', function($scope, toastService, utilService, $loc
 
       toastService.showSimpleToast();
     }
+
+    this.topDirections = 'left';
+    this.bottomDirections = 'down';
+
+    this.isOpen = false;
+    this.selectedMode = 'md-fling';
+    this.selectedDirection = 'up';
 })
