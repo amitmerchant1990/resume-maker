@@ -51,6 +51,10 @@
   margin: 0 auto;
 }
 
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
 .material-cust-medium-button {
     padding: 10px !important;
 }
