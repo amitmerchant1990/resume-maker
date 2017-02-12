@@ -9,8 +9,8 @@ resumeApp.controller('downloadCtrl', function($scope, $location, $log, $mdToast)
   var i = 0;
 
   if(localStorage.getItem('basicInfoObject')!==null){
-    let retrievedObject = localStorage.getItem('basicInfoObject');
-    let basicInfoObject =  JSON.parse(retrievedObject);
+    var retrievedObject = localStorage.getItem('basicInfoObject');
+    var basicInfoObject =  JSON.parse(retrievedObject);
 
     downloadList.fullname = basicInfoObject.fullname;
     downloadList.email = basicInfoObject.email;
@@ -24,8 +24,8 @@ resumeApp.controller('downloadCtrl', function($scope, $location, $log, $mdToast)
   }
 
   if(localStorage.getItem('biographyObject')!==null){
-    let retrievedObject = localStorage.getItem('biographyObject');
-    let biographyObject =  JSON.parse(retrievedObject);
+    var retrievedObject = localStorage.getItem('biographyObject');
+    var biographyObject =  JSON.parse(retrievedObject);
     downloadList.summary = biographyObject.biography;
 
     if(biographyObject.biography=='')
@@ -35,7 +35,7 @@ resumeApp.controller('downloadCtrl', function($scope, $location, $log, $mdToast)
   }
 
   if(localStorage.getItem('addExperienceObject')!==null){
-    let retrievedObject = localStorage.getItem('addExperienceObject');
+    var retrievedObject = localStorage.getItem('addExperienceObject');
     downloadList.elem = JSON.parse(retrievedObject);
 
     if(JSON.parse(retrievedObject).length==0)
@@ -45,7 +45,7 @@ resumeApp.controller('downloadCtrl', function($scope, $location, $log, $mdToast)
   }
 
   if(localStorage.getItem('addProjectObject')!==null){
-    let retrievedObject = localStorage.getItem('addProjectObject');
+    var retrievedObject = localStorage.getItem('addProjectObject');
     downloadList.projects = JSON.parse(retrievedObject);
 
     if(JSON.parse(retrievedObject).length==0)
@@ -55,7 +55,7 @@ resumeApp.controller('downloadCtrl', function($scope, $location, $log, $mdToast)
   }
 
   if(localStorage.getItem('addSkillsObject')!==null){
-    let retrievedObject = localStorage.getItem('addSkillsObject');
+    var retrievedObject = localStorage.getItem('addSkillsObject');
     downloadList.skill = JSON.parse(retrievedObject);
 
     if(JSON.parse(retrievedObject).length==0)
@@ -65,7 +65,7 @@ resumeApp.controller('downloadCtrl', function($scope, $location, $log, $mdToast)
   }
 
   if(localStorage.getItem('addEducationObject')!==null){
-    let retrievedObject = localStorage.getItem('addEducationObject');
+    var retrievedObject = localStorage.getItem('addEducationObject');
     downloadList.education = JSON.parse(retrievedObject);
 
     if(JSON.parse(retrievedObject).length==0)

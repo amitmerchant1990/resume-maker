@@ -24,7 +24,7 @@ resumeApp.controller('experienceCtrl', function($scope, toastService, utilServic
 
     var expId = utilService.guid();
     if(experienceList.id!=undefined && experienceList.id!=''){
-      let addExperienceObject = JSON.parse(localStorage.getItem('addExperienceObject'));
+      var addExperienceObject = JSON.parse(localStorage.getItem('addExperienceObject'));
       for (i=0;i<addExperienceObject.length;i++){
         if (addExperienceObject[i].id == experienceList.id) {
           addExperienceObject[i].companyname = experienceList.companyname;
@@ -64,11 +64,11 @@ resumeApp.controller('experienceCtrl', function($scope, toastService, utilServic
 
   experienceList.removeExperience = function(experience) {
     var _index = experienceList.experiences.indexOf(experience);
-    let id = experience.id;
+    var id = experience.id;
     console.log(experience);
     experienceList.experiences.splice(_index, 1);
 
-    let addExperienceObject = JSON.parse(localStorage.getItem('addExperienceObject'));
+    var addExperienceObject = JSON.parse(localStorage.getItem('addExperienceObject'));
     for (i=0;i<addExperienceObject.length;i++)
                 if (addExperienceObject[i].id == id) addExperienceObject.splice(i,1);
     localStorage.setItem('addExperienceObject', JSON.stringify(addExperienceObject));

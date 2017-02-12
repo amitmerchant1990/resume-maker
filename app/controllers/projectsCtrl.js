@@ -22,7 +22,7 @@ resumeApp.controller('projectsCtrl', function($scope, toastService, utilService,
 
     var projectId = utilService.guid();
     if(projectsList.id!=undefined && projectsList.id!=''){
-      let addProjectObject = JSON.parse(localStorage.getItem('addProjectObject'));
+      var addProjectObject = JSON.parse(localStorage.getItem('addProjectObject'));
       for (i=0;i<addProjectObject.length;i++){
         if (addProjectObject[i].id == projectsList.id) {
           addProjectObject[i].title = projectsList.title;
@@ -59,11 +59,11 @@ resumeApp.controller('projectsCtrl', function($scope, toastService, utilService,
 
   projectsList.removeProject = function(project) {
     var _index = projectsList.projects.indexOf(project);
-    let id = project.id;
+    var id = project.id;
     console.log(project);
     projectsList.projects.splice(_index, 1);
 
-    let addProjectObject = JSON.parse(localStorage.getItem('addProjectObject'));
+    var addProjectObject = JSON.parse(localStorage.getItem('addProjectObject'));
     for (i=0;i<addProjectObject.length;i++)
                 if (addProjectObject[i].id == id) addProjectObject.splice(i,1);
     localStorage.setItem('addProjectObject', JSON.stringify(addProjectObject));
