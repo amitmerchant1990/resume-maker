@@ -32,7 +32,7 @@ resumeApp.controller('tabCtrl', function($scope, toastService, utilService, $loc
 
     // For maintaing tab state while routing
     $scope.$on("$stateChangeSuccess", function(event, toState, toParams, fromState, fromParams) {
-      let currentState = toState.name;
+      var currentState = toState.name;
 
       if(currentState=='view1'){
         $scope.selectedIndex = 0;
@@ -55,7 +55,7 @@ resumeApp.controller('tabCtrl', function($scope, toastService, utilService, $loc
 
     if(localStorage.getItem('basicInfoObject')!==null){
       var retrievedObject = localStorage.getItem('basicInfoObject');
-      let basicInfoObject =  JSON.parse(retrievedObject);
+      var basicInfoObject =  JSON.parse(retrievedObject);
 
       $scope.fullname = basicInfoObject.fullname;
       $scope.email = basicInfoObject.email;
@@ -65,7 +65,7 @@ resumeApp.controller('tabCtrl', function($scope, toastService, utilService, $loc
 
     if(localStorage.getItem('biographyObject')!==null){
       var retrievedObject = localStorage.getItem('biographyObject');
-      let biographyObject =  JSON.parse(retrievedObject);
+      var biographyObject =  JSON.parse(retrievedObject);
 
       $scope.biography = biographyObject.biography;
     }

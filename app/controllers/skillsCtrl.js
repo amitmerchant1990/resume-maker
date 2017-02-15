@@ -20,7 +20,7 @@ resumeApp.controller('skillsCtrl', function($scope, toastService, utilService, $
     var skillId = utilService.guid();
     console.log(skillsList.id);
     if(skillsList.id!=undefined && skillsList.id!=''){
-      let addSkillsObject = JSON.parse(localStorage.getItem('addSkillsObject'));
+      var addSkillsObject = JSON.parse(localStorage.getItem('addSkillsObject'));
       for (i=0;i<addSkillsObject.length;i++){
         if (addSkillsObject[i].id == skillsList.id) {
           addSkillsObject[i].name = skillsList.name;
@@ -52,11 +52,11 @@ resumeApp.controller('skillsCtrl', function($scope, toastService, utilService, $
 
   skillsList.removeSkill = function(skill) {
     var _index = skillsList.skills.indexOf(skill);
-    let id = skill.id;
+    var id = skill.id;
     //console.log(education);
     skillsList.skills.splice(_index, 1);
 
-    let addSkillsObject = JSON.parse(localStorage.getItem('addSkillsObject'));
+    var addSkillsObject = JSON.parse(localStorage.getItem('addSkillsObject'));
     for (i=0;i<addSkillsObject.length;i++)
                 if (addSkillsObject[i].id == id) addSkillsObject.splice(i,1);
     localStorage.setItem('addSkillsObject', JSON.stringify(addSkillsObject));

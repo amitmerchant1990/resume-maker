@@ -23,7 +23,7 @@ resumeApp.controller('educationCtrl', function($scope, toastService, utilService
 
     var eduId = utilService.guid();
     if(educationList.id!=undefined && educationList.id!=''){
-      let addEducationObject = JSON.parse(localStorage.getItem('addEducationObject'));
+      var addEducationObject = JSON.parse(localStorage.getItem('addEducationObject'));
       for (i=0;i<addEducationObject.length;i++){
         if (addEducationObject[i].id == educationList.id) {
           addEducationObject[i].school_name = educationList.school_name;
@@ -60,11 +60,11 @@ resumeApp.controller('educationCtrl', function($scope, toastService, utilService
 
   educationList.removeEducation = function(education) {
     var _index = educationList.educations.indexOf(education);
-    let id = education.id;
+    var id = education.id;
     //console.log(education);
     educationList.educations.splice(_index, 1);
 
-    let addEducationObject = JSON.parse(localStorage.getItem('addEducationObject'));
+    var addEducationObject = JSON.parse(localStorage.getItem('addEducationObject'));
     for (i=0;i<addEducationObject.length;i++)
                 if (addEducationObject[i].id == id) addEducationObject.splice(i,1);
     localStorage.setItem('addEducationObject', JSON.stringify(addEducationObject));
